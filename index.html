@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UatHelp — UAT Consulting</title>
+  <meta name="description" content="UatHelp helps teams stuck in UAT get to production faster with structured recovery, stakeholder alignment, and go-live readiness." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <nav class="nav container">
+        <a href="#top" class="brand">UatHelp</a>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a href="#contact" class="button button-small">Book a UAT Audit</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="hero-glow glow-1"></div>
+        <div class="hero-glow glow-2"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">UAT consulting for delayed launches</p>
+            <h1>Your UAT is the only thing blocking launch. We fix it.</h1>
+            <p class="hero-text">
+              UatHelp helps teams stuck in User Acceptance Testing get across the finish line with
+              structured recovery, stakeholder alignment, blocker triage, and go-live readiness.
+            </p>
+            <div class="hero-actions">
+              <a href="#contact" class="button">Start the Recovery Sprint</a>
+              <a href="#services" class="text-link">See what we do</a>
+            </div>
+            <ul class="hero-metrics">
+              <li><strong>48 hrs</strong><span>to identify critical blockers</span></li>
+              <li><strong>14 days</strong><span>for a focused recovery sprint</span></li>
+              <li><strong>1 goal</strong><span>ship with confidence</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-visual reveal delay-1">
+            <div class="device-card">
+              <div class="device-topline">
+                <span class="status-dot"></span>
+                <span>UAT Recovery Console</span>
+              </div>
+              <div class="dashboard">
+                <div class="dashboard-card dashboard-primary">
+                  <p>Release Health</p>
+                  <h3 id="healthScore">82%</h3>
+                  <span id="healthLabel">Stabilizing toward sign-off</span>
+                </div>
+                <div class="dashboard-card mini-stack">
+                  <div>
+                    <p>Critical blockers</p>
+                    <h4 id="blockerCount">07</h4>
+                  </div>
+                  <div>
+                    <p>Stakeholder alignment</p>
+                    <h4 id="alignmentCount">91%</h4>
+                  </div>
+                </div>
+                <div class="timeline-card">
+                  <div class="timeline-row active">
+                    <span>Audit</span>
+                    <span>Complete</span>
+                  </div>
+                  <div class="timeline-row active">
+                    <span>Triage</span>
+                    <span>In motion</span>
+                  </div>
+                  <div class="timeline-row">
+                    <span>Sign-off</span>
+                    <span>Next</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro">
+        <div class="container narrow reveal">
+          <p class="section-label">Why teams call UatHelp</p>
+          <h2>Most projects do not fail in development. They stall in UAT.</h2>
+          <p class="section-text">
+            Missed deadlines, endless test cycles, unclear ownership, shifting acceptance criteria,
+            and frustrated stakeholders can keep a release “almost ready” for weeks. UatHelp is built
+            for that exact moment.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-label">Services</p>
+            <h2>The support your launch needs right now.</h2>
+          </div>
+          <div class="card-grid">
+            <article class="info-card reveal">
+              <h3>UAT Recovery Sprint</h3>
+              <p>A focused 2-week engagement to diagnose blockers, align teams, and drive sign-off.</p>
+            </article>
+            <article class="info-card reveal delay-1">
+              <h3>Stakeholder Coordination</h3>
+              <p>Clear ownership, better communication, and faster decisions across business and delivery teams.</p>
+            </article>
+            <article class="info-card reveal delay-2">
+              <h3>Bug Triage & Prioritization</h3>
+              <p>Separate the true launch blockers from the noise so the team can move decisively.</p>
+            </article>
+            <article class="info-card reveal">
+              <h3>Test Case Strategy</h3>
+              <p>Create or refine acceptance coverage so UAT becomes structured, measurable, and predictable.</p>
+            </article>
+            <article class="info-card reveal delay-1">
+              <h3>Go-Live Readiness</h3>
+              <p>Validate risk, confirm alignment, and make sure the release is actually ready for production.</p>
+            </article>
+            <article class="info-card reveal delay-2">
+              <h3>Delivery Assurance</h3>
+              <p>Enterprise-focused support for teams that need confidence before a high-stakes release.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature-band" id="process">
+        <div class="container feature-grid">
+          <div class="feature-copy reveal">
+            <p class="section-label">Process</p>
+            <h2>From stuck to shipped.</h2>
+            <p>
+              We start with a rapid audit, identify the blockers that matter, bring the right people into
+              the conversation, and create a clear path to sign-off.
+            </p>
+          </div>
+          <div class="steps reveal delay-1">
+            <div class="step">
+              <span>01</span>
+              <div>
+                <h3>Assess</h3>
+                <p>Review requirements, defects, ownership, and release risk.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span>02</span>
+              <div>
+                <h3>Align</h3>
+                <p>Get business, QA, and delivery stakeholders moving in the same direction.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span>03</span>
+              <div>
+                <h3>Accelerate</h3>
+                <p>Prioritize fixes, close gaps, and push toward confident launch approval.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section" id="contact">
+        <div class="container narrow reveal">
+          <p class="section-label">Contact</p>
+          <h2>Get unstuck in 14 days.</h2>
+          <p class="section-text">
+            If your launch is being held up by UAT, let’s talk. We’ll help you identify where the process is breaking and what it takes to move forward.
+          </p>
+          <form class="cta-form" id="leadForm">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Work email" required>
+            <textarea name="message" placeholder="What is currently stuck in UAT?" required></textarea>
+            <button type="submit" class="button">Request a Free UAT Audit</button>
+            <p class="form-message" id="formMessage"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
