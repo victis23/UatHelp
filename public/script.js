@@ -1,21 +1,20 @@
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
+document.addEventListener("DOMContentLoaded", () => {
+    const revealItems = document.querySelectorAll(".reveal-section");
 
-        const target = document.querySelector(href);
-        if (!target) return;
+    const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
 
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-    });
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.14,
+            rootMargin: "0px 0px -10% 0px"
+        }
+    );
+
+    revealItems.forEach((item) => revealObserver.observe(item));
 });
-
-const nav = document.querySelector('.topbar');
-
-if (nav) {
-    window.addEventListener('scroll', () => {
-        nav.style.boxShadow =
-            window.scrollY > 10 ? '0 4px 20px rgba(0,0,0,0.08)' : 'none';
-    });
-}
