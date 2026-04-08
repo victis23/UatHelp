@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const revealItems = document.querySelectorAll(".reveal-section");
-
     const revealObserver = new IntersectionObserver(
         (entries, observer) => {
             entries.forEach((entry) => {
@@ -11,31 +10,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 observer.unobserve(entry.target);
             });
         },
-        {
-            threshold: 0.14,
-            rootMargin: "0px 0px -10% 0px"
-        }
+        { threshold: 0.14, rootMargin: "0px 0px -10% 0px" }
     );
 
     revealItems.forEach((item) => revealObserver.observe(item));
 
     const uatConsole = document.getElementById("uatConsole");
     const consoleRing = document.getElementById("consoleRing");
-
     const releaseHealthValue = document.getElementById("releaseHealthValue");
     const readinessValue = document.getElementById("readinessValue");
     const criticalBlockersValue = document.getElementById("criticalBlockersValue");
     const miniBlockersValue = document.getElementById("miniBlockersValue");
     const stakeholderAlignmentValue = document.getElementById("stakeholderAlignmentValue");
-
     const consoleRow1 = document.getElementById("consoleRow1");
     const consoleRow2 = document.getElementById("consoleRow2");
     const consoleRow3 = document.getElementById("consoleRow3");
-
     const consoleRow1Status = document.getElementById("consoleRow1Status");
     const consoleRow2Status = document.getElementById("consoleRow2Status");
     const consoleRow3Status = document.getElementById("consoleRow3Status");
-
     const miniCards = document.querySelectorAll(".console-mini-card");
 
     if (!uatConsole || !consoleRing) return;
@@ -64,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let sequenceTimeouts = [];
     let isAnimatingForward = false;
     let isAnimatingReverse = false;
+    let hasUserScrolled = false;
+    let hasAnimatedOnce = false;
 
     function clearAnimationFrameIfNeeded() {
         if (currentAnimationFrame) {
@@ -213,26 +207,31 @@ document.addEventListener("DOMContentLoaded", () => {
     function animateForward() {
         if (reduceMotion) {
             applyFinalUIState();
+            hasAnimatedOnce = true;
             return;
         }
 
-        if (isAnimatingForward) return;
+        if (isAnimatingForward || hasAnimatedOnce) return;
+
         isAnimatingForward = true;
         isAnimatingReverse = false;
 
         animateConsole(initialState, finalState, 1500, () => {
             runForwardSequence();
             isAnimatingForward = false;
+            hasAnimatedOnce = true;
         });
     }
 
     function animateReverse() {
         if (reduceMotion) {
             applyInitialUIState();
+            hasAnimatedOnce = false;
             return;
         }
 
         if (isAnimatingReverse) return;
+
         isAnimatingReverse = true;
         isAnimatingForward = false;
 
@@ -241,27 +240,36 @@ document.addEventListener("DOMContentLoaded", () => {
         animateConsole(finalState, initialState, 950, () => {
             applyInitialUIState();
             isAnimatingReverse = false;
+            hasAnimatedOnce = false;
         });
     }
 
     applyInitialUIState();
 
+    window.addEventListener(
+        "scroll",
+        () => {
+            if (window.scrollY > 40) {
+                hasUserScrolled = true;
+            }
+        },
+        { passive: true }
+    );
+
     const consoleObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
-                const mostlyVisible = entry.intersectionRatio >= 0.56;
-                const mostlyHidden = entry.intersectionRatio <= 0.18;
+                const mostlyVisible = entry.intersectionRatio >= 0.68;
+                const mostlyHidden = entry.intersectionRatio <= 0.12;
 
-                if (mostlyVisible) {
+                if (mostlyVisible && hasUserScrolled) {
                     animateForward();
-                } else if (mostlyHidden) {
+                } else if (mostlyHidden && hasAnimatedOnce) {
                     animateReverse();
                 }
             });
         },
-        {
-            threshold: [0, 0.18, 0.32, 0.56, 0.8, 1]
-        }
+        { threshold: [0, 0.12, 0.24, 0.4, 0.68, 0.85, 1] }
     );
 
     consoleObserver.observe(uatConsole);
