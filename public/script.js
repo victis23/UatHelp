@@ -1,3 +1,8 @@
+console.log("script.js loaded");
+console.log("form found:", !!document.getElementById("contactForm"));
+console.log("firebaseFns found:", !!window.firebaseFns);
+console.log("db found:", !!window.db);
+
 document.addEventListener("DOMContentLoaded", () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -275,8 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
     consoleObserver.observe(uatConsole);
 });
 
-const form = document.getElementById("leadForm");
-const status = document.getElementById("formStatus");
+const form = document.getElementById("contactForm");
+const status = document.getElementById("formMessage");
 
 if (form) {
     form.addEventListener("submit", async (e) => {
@@ -285,24 +290,23 @@ if (form) {
         const data = new FormData(form);
 
         const payload = {
-            name: data.get("name"),
-            email: data.get("email"),
-            company: data.get("company"),
-            message: data.get("message"),
-            createdAt: new Date()
+            name: String(data.get("name") || "").trim(),
+            email: String(data.get("email") || "").trim(),
+            message: String(data.get("message") || "").trim(),
+            createdAt: window.firebaseFns.serverTimestamp()
         };
 
         try {
-            // THIS USES YOUR EXISTING FIREBASE SETUP
-            const db = firebase.firestore();
+            const { collection, addDoc } = window.firebaseFns;
+            const db = window.db;
 
-            await db.collection("leads").add(payload);
+            await addDoc(collection(db, "leads"), payload);
 
             status.textContent = "Submitted successfully.";
             form.reset();
         } catch (err) {
-            console.error(err);
+            console.error("Firestore submit error:", err);
             status.textContent = "Something went wrong.";
         }
     });
-}
+} 
