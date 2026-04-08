@@ -31,81 +31,124 @@
   </header>
 
   <main>
-    <section class="section hero">
-      <div class="hero-media"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-noise"></div>
-
-      <div class="container hero-grid">
-        <div class="hero-copy reveal-section">
-          <p class="eyebrow">UAT consulting for delayed launches</p>
-          <h1>Your UAT is the only thing blocking launch. We fix it.</h1>
-
-          <p class="hero-text">
-            We help teams stuck in User Acceptance Testing get across the
-            finish line with structured recovery, stakeholder alignment, blocker
-            triage, and go-live readiness.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#contact" class="button">Start the Recovery Sprint</a>
-            <a href="#services" class="text-link">See what we do</a>
-          </div>
-
-          <ul class="hero-metrics">
-            <li class="glass-tile reveal-section reveal-delay-1">
-              <strong>48 hrs</strong>
-              <span>to identify critical blockers</span>
-            </li>
-            <li class="glass-tile reveal-section reveal-delay-2">
-              <strong>14 days</strong>
-              <span>for a focused recovery sprint</span>
-            </li>
-            <li class="glass-tile reveal-section reveal-delay-3">
-              <strong>1 goal</strong>
-              <span>ship with confidence</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="hero-visual reveal-section reveal-delay-1">
-          <div class="device-card liquid-panel">
-            <div class="device-topline">
-              <span class="status-dot"></span>
-              <span>UAT Recovery Console</span>
+    <section class="section hero hero-apple-glass">
+      <div class="hero-bg-image"></div>
+      <div class="hero-bg-vignette"></div>
+      <div class="hero-bg-glow"></div>
+    
+      <div class="container">
+        <div class="hero-shell reveal-section">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow hero-eyebrow">UAT consulting for delayed launches</p>
+    
+              <h1>Your UAT is the only thing blocking launch. We fix it.</h1>
+    
+              <p class="hero-text">
+                UatHelp helps teams stuck in User Acceptance Testing get across the
+                finish line with structured recovery, stakeholder alignment, blocker
+                triage, and go-live readiness.
+              </p>
+    
+              <div class="hero-actions">
+                <a href="#contact" class="button hero-primary-button">Start the Recovery Sprint</a>
+                <a href="#services" class="hero-secondary-button">See what we do</a>
+              </div>
             </div>
-
-            <div class="dashboard">
-              <div class="dashboard-card dashboard-primary">
-                <span>Release Health</span>
-                <h3>82%</h3>
-                <p>Stabilizing toward sign-off</p>
+    
+            <div class="hero-console reveal-section reveal-delay-1">
+              <div class="console-card" id="uatConsole">
+                <div class="console-top">
+                  <div class="console-title-wrap">
+                    <span class="status-dot"></span>
+                    <span class="console-title">UAT Recovery Console</span>
+                  </div>
+    
+                  <div class="console-menu" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+    
+                <div class="console-divider"></div>
+    
+                <div class="console-main">
+                  <div class="console-health">
+                    <div class="console-health-copy">
+                      <p>Release Health</p>
+                      <h3>
+                        <span id="releaseHealthValue">82</span><span>%</span>
+                      </h3>
+                      <span><span id="criticalBlockersValue">7</span> critical blockers</span>
+                    </div>
+    
+                    <div class="console-ring" id="consoleRing" aria-label="Release readiness progress">
+                      <div class="console-ring-inner">
+                        <strong><span id="readinessValue">81</span>%</strong>
+                        <span>Readiness</span>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="console-checklist">
+                    <div class="console-row complete" id="consoleRow1">
+                      <span class="console-check">✓</span>
+                      <span>Audit Complete</span>
+                      <strong id="consoleRow1Status">Done</strong>
+                    </div>
+    
+                    <div class="console-row active" id="consoleRow2">
+                      <span class="console-check">✓</span>
+                      <span>Triage In motion</span>
+                      <strong id="consoleRow2Status">Live</strong>
+                    </div>
+    
+                    <div class="console-row" id="consoleRow3">
+                      <span class="console-check">✓</span>
+                      <span>Sign-off Next</span>
+                      <strong id="consoleRow3Status">Queued</strong>
+                    </div>
+                  </div>
+    
+                  <div class="console-mini-stats">
+                    <div class="console-mini-card">
+                      <span>Critical blockers</span>
+                      <strong><span id="miniBlockersValue">7</span></strong>
+                    </div>
+    
+                    <div class="console-mini-card">
+                      <span>Stakeholder alignment</span>
+                      <strong><span id="stakeholderAlignmentValue">91</span>%</strong>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div class="mini-stack">
-                <div class="dashboard-card">
-                  <span>Critical blockers</span>
-                  <h4>07</h4>
-                </div>
-                <div class="dashboard-card">
-                  <span>Stakeholder alignment</span>
-                  <h4>91%</h4>
-                </div>
+            </div>
+          </div>
+    
+          <div class="hero-bottom-metrics reveal-section reveal-delay-2">
+            <div class="metric-glass">
+              <div class="metric-icon">↑</div>
+              <div>
+                <strong>48 hrs</strong>
+                <span>identify critical blockers</span>
               </div>
-
-              <div class="timeline-card">
-                <div class="timeline-row">
-                  <span>Audit Complete</span>
-                  <strong>Done</strong>
-                </div>
-                <div class="timeline-row active">
-                  <span>Triage In motion</span>
-                  <strong>Live</strong>
-                </div>
-                <div class="timeline-row">
-                  <span>Sign-off Next</span>
-                  <strong>Queued</strong>
-                </div>
+            </div>
+    
+            <div class="metric-glass">
+              <div class="metric-icon">↻</div>
+              <div>
+                <strong>14 days</strong>
+                <span>for a focused recovery sprint</span>
+              </div>
+            </div>
+    
+            <div class="metric-glass">
+              <div class="metric-icon">•</div>
+              <div>
+                <strong>1 goal</strong>
+                <span>ship with confidence</span>
               </div>
             </div>
           </div>
