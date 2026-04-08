@@ -274,3 +274,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     consoleObserver.observe(uatConsole);
 });
+
+const form = document.getElementById("leadForm");
+const status = document.getElementById("formStatus");
+
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const data = new FormData(form);
+
+        const payload = {
+            name: data.get("name"),
+            email: data.get("email"),
+            company: data.get("company"),
+            message: data.get("message"),
+            createdAt: new Date()
+        };
+
+        try {
+            // THIS USES YOUR EXISTING FIREBASE SETUP
+            const db = firebase.firestore();
+
+            await db.collection("leads").add(payload);
+
+            status.textContent = "Submitted successfully.";
+            form.reset();
+        } catch (err) {
+            console.error(err);
+            status.textContent = "Something went wrong.";
+        }
+    });
+}

@@ -1028,4 +1028,37 @@ img {
     min-height: auto;
     padding: 88px 0 52px;
   }
+
+  .lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+  }
+
+  .lead-form input,
+  .lead-form textarea {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font: inherit;
+  }
+
+  .lead-form button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #4fd1c5;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .lead-form button:hover {
+    opacity: 0.9;
+  }
+
+  #formStatus {
+    font-size: 0.9rem;
+  }
 }
