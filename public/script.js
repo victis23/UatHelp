@@ -289,24 +289,85 @@ if (form) {
 
         const data = new FormData(form);
 
-        const payload = {
-            name: String(data.get("name") || "").trim(),
-            email: String(data.get("email") || "").trim(),
-            message: String(data.get("message") || "").trim(),
-            createdAt: window.firebaseFns.serverTimestamp()
-        };
+        const normalizedEntries = [];
+        for (const [key, value] of data.entries()) {
+            normalizedEntries.push([
+                String(key).trim(),
+                String(value ?? "").trim()
+            ]);
+        }
+
+        const leadData = {};
+        normalizedEntries.forEach(([key, value]) => {
+            leadData[key] = value;
+        });
+
+        const htmlRows = normalizedEntries
+            .map(
+                ([key, value]) => `
+        <tr>
+          <td style="padding:8px 12px;border:1px solid #ddd;font-weight:600;text-transform:capitalize;">
+            ${escapeHtml(key)}
+          </td>
+          <td style="padding:8px 12px;border:1px solid #ddd;">
+            ${escapeHtml(value || "-")}
+          </td>
+        </tr>
+      `
+            )
+            .join("");
+
+        const textBody = normalizedEntries
+            .map(([key, value]) => `${key}: ${value || "-"}`)
+            .join("\n");
+
+        const htmlBody = `
+    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111;">
+      <h2>New UAT Help Lead</h2>
+      <p>A new form submission was received from uathelp.com.</p>
+      <table style="border-collapse:collapse;width:100%;max-width:700px;">
+        <tbody>${htmlRows}</tbody>
+      </table>
+    </div>
+  `;
 
         try {
-            const { collection, addDoc } = window.firebaseFns;
+            const { collection, addDoc, serverTimestamp } = window.firebaseFns;
             const db = window.db;
 
-            await addDoc(collection(db, "leads"), payload);
+            // ✅ Save lead
+            await addDoc(collection(db, "leads"), {
+                ...leadData,
+                createdAt: serverTimestamp()
+            });
+
+            // ✅ Trigger email
+            await addDoc(collection(db, "mail"), {
+                to: ["helpme@uathelp.com"],
+                message: {
+                    subject: "New UAT Help Lead",
+                    text: textBody,
+                    html: htmlBody
+                },
+                submittedAt: serverTimestamp(),
+                formData: leadData
+            });
 
             status.textContent = "Submitted successfully.";
             form.reset();
+
         } catch (err) {
-            console.error("Firestore submit error:", err);
-            status.textContent = "Something went wrong.";
+            console.error("Submit error:", err);
+            status.textContent = "Something went wrong. Please try again.";
         }
     });
-} 
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
