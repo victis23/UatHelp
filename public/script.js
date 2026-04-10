@@ -1,8 +1,3 @@
-console.log("script.js loaded");
-console.log("form found:", !!document.getElementById("contactForm"));
-console.log("firebaseFns found:", !!window.firebaseFns);
-console.log("db found:", !!window.db);
-
 document.addEventListener("DOMContentLoaded", () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -302,55 +297,13 @@ if (form) {
             leadData[key] = value;
         });
 
-        const htmlRows = normalizedEntries
-            .map(
-                ([key, value]) => `
-        <tr>
-          <td style="padding:8px 12px;border:1px solid #ddd;font-weight:600;text-transform:capitalize;">
-            ${escapeHtml(key)}
-          </td>
-          <td style="padding:8px 12px;border:1px solid #ddd;">
-            ${escapeHtml(value || "-")}
-          </td>
-        </tr>
-      `
-            )
-            .join("");
-
-        const textBody = normalizedEntries
-            .map(([key, value]) => `${key}: ${value || "-"}`)
-            .join("\n");
-
-        const htmlBody = `
-    <div style="font-family:Arial,sans-serif;line-height:1.5;color:#111;">
-      <h2>New UAT Help Lead</h2>
-      <p>A new form submission was received from uathelp.com.</p>
-      <table style="border-collapse:collapse;width:100%;max-width:700px;">
-        <tbody>${htmlRows}</tbody>
-      </table>
-    </div>
-  `;
-
         try {
             const { collection, addDoc, serverTimestamp } = window.firebaseFns;
             const db = window.db;
 
-            // ✅ Save lead
             await addDoc(collection(db, "leads"), {
                 ...leadData,
                 createdAt: serverTimestamp()
-            });
-
-            // ✅ Trigger email
-            await addDoc(collection(db, "mail"), {
-                to: ["helpme@uathelp.com"],
-                message: {
-                    subject: "New UAT Help Lead",
-                    text: textBody,
-                    html: htmlBody
-                },
-                submittedAt: serverTimestamp(),
-                formData: leadData
             });
 
             status.textContent = "Submitted successfully.";
