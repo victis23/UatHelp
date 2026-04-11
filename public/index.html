@@ -306,10 +306,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
 
-    // ✅ ADD THIS
-    import { getFirestore, collection, addDoc, serverTimestamp }
-      from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
     const firebaseConfig = {
       apiKey: "AIzaSyBxzIVl2g1pfLQi7UX0oqwjR4-mpB8MENs",
       authDomain: "uathelp-bea3b.firebaseapp.com",
@@ -321,14 +317,7 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-
-    // ✅ CREATE FIRESTORE INSTANCE
-    const db = getFirestore(app);
-
-    // ✅ MAKE IT GLOBAL (IMPORTANT)
-    window.db = db;
-    window.firebaseFns = { collection, addDoc, serverTimestamp };
+    getAnalytics(app);
   </script>
 
   <script src="script.js"></script>

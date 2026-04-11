@@ -275,6 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
     consoleObserver.observe(uatConsole);
 });
 
+const SUBMIT_URL = "https://us-central1-uathelp-bea3b.cloudfunctions.net/submitLead";
+
 const form = document.getElementById("contactForm");
 const status = document.getElementById("formMessage");
 
@@ -282,29 +284,23 @@ if (form) {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const data = new FormData(form);
-
-        const normalizedEntries = [];
-        for (const [key, value] of data.entries()) {
-            normalizedEntries.push([
-                String(key).trim(),
-                String(value ?? "").trim()
-            ]);
-        }
-
-        const leadData = {};
-        normalizedEntries.forEach(([key, value]) => {
-            leadData[key] = value;
-        });
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
 
         try {
-            const { collection, addDoc, serverTimestamp } = window.firebaseFns;
-            const db = window.db;
-
-            await addDoc(collection(db, "leads"), {
-                ...leadData,
-                createdAt: serverTimestamp()
+            const res = await fetch(SUBMIT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, message })
             });
+
+            const json = await res.json();
+
+            if (!res.ok) {
+                status.textContent = json.error || "Something went wrong. Please try again.";
+                return;
+            }
 
             status.textContent = "Submitted successfully.";
             form.reset();
@@ -314,13 +310,4 @@ if (form) {
             status.textContent = "Something went wrong. Please try again.";
         }
     });
-}
-
-function escapeHtml(value) {
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
 }
